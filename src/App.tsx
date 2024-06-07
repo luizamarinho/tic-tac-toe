@@ -17,6 +17,7 @@ function Square(props: SquareProps) {
 }
 
 function Board() {
+  const [jogador, setJogador] = useState<number>(1);
   const [squares, setSquares] = useState<(string | null)[]>(
     Array(9).fill(null)
     // Esse método de array substitui a repetição do null 9 vezes - vide rascunho
@@ -24,18 +25,19 @@ function Board() {
   function handleClick(indice: number) {
     setSquares((antigo) => {
       const nova = [...antigo];
-      if (nova[indice] == null) {
+      if (nova[indice] == null && jogador === 1) {
         nova[indice] = 'x';
-      } else if (nova[indice] === 'x') {
+        setJogador(2);
+      } else if (nova[indice] == null && jogador === 2) {
         nova[indice] = 'o';
-      } else {
-        nova[indice] = null;
+        setJogador(1);
       }
       return nova;
     });
   }
   return (
     <>
+      <h1>Próximo jogador: {jogador}</h1>
       <div className="board-row">
         <Square onClick={() => handleClick(0)} value={squares[0]} />
         <Square onClick={() => handleClick(1)} value={squares[1]} />
