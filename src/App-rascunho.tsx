@@ -79,3 +79,14 @@ function Board() {
     </>
   );
 }
+
+// for (let indice_2 = 0; indice_2 < tabela.length; indice_2++) {
+//   const [a, b, c] = tabela[indice_2];
+//   if (
+//     tabuleiro[a] &&
+//     tabuleiro[a] === tabuleiro[b] &&
+//     tabuleiro[a] === tabuleiro[c]
+//   ) {
+//     return tabuleiro[a];
+//   }
+// }

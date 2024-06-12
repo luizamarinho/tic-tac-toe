@@ -25,13 +25,23 @@ function Board() {
   function handleClick(indice: number) {
     setSquares((antigo) => {
       const nova = [...antigo];
-      if (nova[indice] == null && jogador === 1) {
-        nova[indice] = 'x';
-        setJogador(2);
-      } else if (nova[indice] == null && jogador === 2) {
-        nova[indice] = 'o';
-        setJogador(1);
+      if (nova[indice] == null) {
+        if (jogador === 1) {
+          nova[indice] = 'x';
+          ``;
+          setJogador(2);
+        } else {
+          nova[indice] = 'o';
+          setJogador(1);
+        }
+
+        let vencedor = computarVencedor(nova);
+        if (vencedor != null) {
+          console.log('vencedor: ' + vencedor);
+        }
       }
+
+      console.log(indice);
       return nova;
     });
   }
@@ -55,4 +65,34 @@ function Board() {
       </div>
     </>
   );
+}
+
+function computarVencedor(tabuleiro: (string | null)[]) {
+  const tabela = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  for (let i = 0; i < tabela.length; i++) {
+    let primeiro_indice = tabela[i][0];
+    let segundo_indice = tabela[i][1];
+    let terceiro_indice = tabela[i][2];
+
+    let primeiro = tabuleiro[primeiro_indice];
+    let segundo = tabuleiro[segundo_indice];
+    let terceiro = tabuleiro[terceiro_indice];
+
+    if (primeiro === 'x' && segundo === 'x' && terceiro === 'x') {
+      return tabuleiro[primeiro_indice];
+    } else if (primeiro === 'o' && segundo === 'o' && terceiro === 'o') {
+      return tabuleiro[primeiro_indice];
+    }
+  }
+  return null;
 }
